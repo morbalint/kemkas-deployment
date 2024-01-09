@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kemkas
+  namespace: kemkas
+  labels:
+    app: kemkas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kemkas
+  template:
+    metadata:
+      name: kemkas
+      labels:
+        app: kemkas
+    spec:
+      containers:
+        - name: kemkas
+          image: registry.digitalocean.com/kemkas/kemkas:45914c78
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: Email__DomainName
+              value: mail.kemkas.hu
+            - name: Email__ApiKey
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: email--api-key
+            - name: ConnectionStrings__DefaultConnection
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: connection-strings--default-connection
+            - name: Authentication__Google__ClientId
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--google--client-id
+            - name: Authentication__Google__ClientSecret
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--google--client-secret
+            - name: Authentication__Facebook__ClientId
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--facebook--client-id
+            - name: Authentication__Facebook__ClientSecret
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--facebook--client-secret
+            - name: Authentication__Discord__ClientId
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--discord--client-id
+            - name: Authentication__Discord__ClientSecret
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--discord--client-secret
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100M
+            limits:
+              cpu: 1000m
+              memory: 500M
+                
+      restartPolicy: Always
+      

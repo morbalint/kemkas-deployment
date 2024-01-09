@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-kemkas
+  namespace: kemkas
+  annotations:
+    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    cert-manager.io/issuer: letsencrypt-kemkas
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-service
+            port:
+              number: 8080
+    host: dev.kemkas.hu
+  tls:
+  - hosts:
+    - dev.kemkas.hu
+    secretName: letsencrypt-kemkas
