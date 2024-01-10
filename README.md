@@ -22,8 +22,9 @@ Setup instructions
 1. DO 1-click install argoCD into k8s cluster (TODO: replace with helm install command, I suspect behind the scenes the 1-click install does the same)
 1. DO 1-click install ingress-nginx into k8s cluster (TODO: replace with helm install command, I suspect behind the scenes the 1-click install does the same)
 1. DO 1-click install cert-manager into k8s cluster (TODO: replace with helm install command, I suspect behind the scenes the 1-click install does the same)
+1. helm upgrade ingress-nginx to fix cert-manager pod2pod communication and enable proxy protocoll `helm upgrade ingress-nginx ingress-nginx/ingress-nginx --version 4.8.2 --namespace ingress-nginx --values ingress-nginx/values.yaml`
 1. Create DNS A record for argocd.kemkas.hu pointing to the Load Balancer IP address (Load balancer is a DO object created with the ingress-nginx helm chart install)
-1. helm update argocd with `argocd-values.yaml`
+1. helm update argocd with `helm upgrade argocd argo/argo-cd --version 4.9.4 --namespace argocd -f argocd-values.yaml`
 1. Apply all files in `argocd` directory
     ```
     kubectl apply -f cert-manager-issuer.yaml
