@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: letsencrypt-kemkas
+  name: letsencrypt-kemkas-staging
   namespace: kemkas
 spec:
   # ACME issuer configuration
@@ -12,7 +12,7 @@ spec:
     email: developer@kemkas.hu
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-kemkas-private-key
+      name: letsencrypt-kemkas-staging-private-key
     solvers:
       # Use the HTTP-01 challenge provider
       - http01:
