@@ -19,8 +19,19 @@ spec:
             name: kemkas-service
             port:
               number: 8080
-    host: staging.kemkas.hu
+    host: kemkas.hu
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-service
+            port:
+              number: 8080
+    host: app.kemkas.hu
   tls:
   - hosts:
-    - staging.kemkas.hu
+    - kemkas.hu
+    - app.kemkas.hu
     secretName: letsencrypt-kemkas-staging
