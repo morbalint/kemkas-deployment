@@ -6,7 +6,7 @@ metadata:
   annotations:
     # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     # nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-    cert-manager.io/issuer: letsencrypt-kemkas
+    cert-manager.io/issuer: letsencrypt-app-kemkas-hu
 spec:
   ingressClassName: nginx
   rules:
@@ -19,8 +19,9 @@ spec:
             name: kemkas-service
             port:
               number: 8080
-    host: kemkas.hu
+    host: app.kemkas.hu
   tls:
   - hosts:
     - kemkas.hu
-    secretName: letsencrypt-kemkas
+    - app.kemkas.hu
+    secretName: letsencrypt-app-kemkas-hu
