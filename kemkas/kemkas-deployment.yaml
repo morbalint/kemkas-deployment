@@ -70,8 +70,8 @@ spec:
               cpu: 100m
               memory: 100M
             limits:
-              cpu: 1000m
-              memory: 500M
+              cpu: 800m
+              memory: 400M
                 
       restartPolicy: Always
       
