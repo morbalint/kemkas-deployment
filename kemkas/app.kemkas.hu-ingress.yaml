@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-kemkas
+  name: ingress-app-kemkas-hu
   namespace: kemkas
   annotations:
     # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
