@@ -1,5 +1,11 @@
 # Kemkas k8s Deployment
 
+Currently running on managed Kubernetes and managed PostgreDB (with a staging enviroonemnt on a managed App Platform)
+
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=ff66274a0cf1&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
+
+Note: the above button is a referal link.
+
 ## ToC
 - [Argo CD](#argo-cd)
 - [1password ESO connect server](#1password-connect-server)
