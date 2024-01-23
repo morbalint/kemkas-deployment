@@ -24,7 +24,7 @@ spec:
             - containerPort: 8080
           env:
             - name: monitoring__url
-              value: "grafana-k8s-monitoring-grafana-agent.default.svc.cluster.local:4317"
+              value: "http://grafana-k8s-monitoring-grafana-agent.default.svc.cluster.local:4318"
             - name: Email__DomainName
               value: "mail.kemkas.hu"
             - name: Email__ApiKey
