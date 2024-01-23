@@ -67,6 +67,12 @@ spec:
                 secretKeyRef:
                   name: kemkas-envs
                   key: authentication--discord--client-secret
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3
           resources:
             requests:
               cpu: 100m
