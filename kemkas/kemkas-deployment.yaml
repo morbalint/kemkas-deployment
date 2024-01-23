@@ -18,13 +18,15 @@ spec:
     spec:
       containers:
         - name: kemkas
-          image: registry.digitalocean.com/kemkas/kemkas:8abe228d
+          image: registry.digitalocean.com/kemkas/kemkas:65132fc7
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env:
+            - name: monitoring__url
+              value: "grafana-k8s-monitoring-grafana-agent.default.svc.cluster.local:4317"
             - name: Email__DomainName
-              value: mail.kemkas.hu
+              value: "mail.kemkas.hu"
             - name: Email__ApiKey
               valueFrom:
                 secretKeyRef:
@@ -70,8 +72,8 @@ spec:
               cpu: 100m
               memory: 100M
             limits:
-              cpu: 800m
-              memory: 400M
+              cpu: 750m
+              memory: 300M
                 
       restartPolicy: Always
       
