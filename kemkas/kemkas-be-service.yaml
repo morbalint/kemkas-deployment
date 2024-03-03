@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kemkas-be-service
+  namespace: kemkas
+  labels:
+    app: kemkas-be
+spec:
+  selector:
+    app: kemkas-be
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

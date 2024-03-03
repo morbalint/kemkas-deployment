@@ -80,6 +80,6 @@ spec:
             limits:
               cpu: 750m
               memory: 300M
-                
+
       restartPolicy: Always
-      
+

@@ -29,6 +29,6 @@ spec:
             limits:
               cpu: 500m
               memory: 200M
-                
+
       restartPolicy: Always
-      
+
