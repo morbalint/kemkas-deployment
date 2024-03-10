@@ -33,6 +33,13 @@ spec:
             name: kemkas-be-service
             port:
               number: 8080
+      - path: /signin/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
       - path: /lib/
         pathType: Prefix
         backend:
