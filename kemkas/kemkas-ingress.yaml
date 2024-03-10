@@ -12,13 +12,62 @@ spec:
   rules:
   - http:
       paths:
+      - path: /Identity/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /api/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /signin-discord/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /lib/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /js/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /css/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /img/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: kemkas-service
+            name: kemkas-fe-service
             port:
-              number: 8080
+              number: 80
     host: kemkas.hu
   tls:
   - hosts:
