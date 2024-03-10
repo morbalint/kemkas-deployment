@@ -1,0 +1,82 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-beta-kemkas-hu
+  namespace: kemkas-beta
+  annotations:
+    # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    cert-manager.io/issuer: letsencrypt-beta-kemkas-hu
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /Identity/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /api/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /signin-discord/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /signin/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /lib/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /js/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /css/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /img/
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-be-service
+            port:
+              number: 8080
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kemkas-fe-service
+            port:
+              number: 80
+    host: beta.kemkas.hu
+  tls:
+  - hosts:
+    - beta.kemkas.hu
+    secretName: letsencrypt-beta-kemkas-hu

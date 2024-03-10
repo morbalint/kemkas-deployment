@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kemkas-be
+  namespace: kemkas-beta
+  labels:
+    app: kemkas-be
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kemkas-be
+  template:
+    metadata:
+      name: kemkas-be
+      labels:
+        app: kemkas-be
+    spec:
+      containers:
+        - name: kemkas-be
+          image: registry.digitalocean.com/kemkas/kemkas-be:f0715b2e
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: monitoring__url
+              value: "http://grafana-k8s-monitoring-grafana-agent.default.svc.cluster.local:4318"
+            - name: Email__DomainName
+              value: "mail.kemkas.hu"
+            - name: Email__ApiKey
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: email--api-key
+            - name: ConnectionStrings__DefaultConnection
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: connection-strings--beta-connection
+            - name: Authentication__Google__ClientId
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--google--client-id
+            - name: Authentication__Google__ClientSecret
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--google--client-secret
+            - name: Authentication__Facebook__ClientId
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--facebook--client-id
+            - name: Authentication__Facebook__ClientSecret
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--facebook--client-secret
+            - name: Authentication__Discord__ClientId
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--discord--client-id
+            - name: Authentication__Discord__ClientSecret
+              valueFrom:
+                secretKeyRef:
+                  name: kemkas-envs
+                  key: authentication--discord--client-secret
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100M
+            limits:
+              cpu: 750m
+              memory: 300M
+
+      restartPolicy: Always
+
