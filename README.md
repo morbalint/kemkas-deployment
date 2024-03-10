@@ -56,7 +56,7 @@ Setup:
 1. create DNS A record pointing to the droplet
 1. install nginx, certbot `sudo apt install nginx certbot python3-certbot-nginx`
 1. copy `docker-compose.yaml` and `1password-credentials.json` to the droplet and run `docker compose up -d`
-1. copy connect-server nginx config to `/etc/nginx/sites-available` and link it to sites enabled `ln -s /etc/nginx/sites-available/connect-server.conf /etc/nginx/sites-enabled/`
+1. copy `connect-server.conf` nginx config to `/etc/nginx/sites-available` and link it to sites enabled `ln -s /etc/nginx/sites-available/connect-server.conf /etc/nginx/sites-enabled/`
 1. test nginx config `nginx -t`
 1. reload nginx config `nginx -s reload`
 1. create SSL certificate with certbot `certbot --nginx -d 1password-connect.dev.kemkas.hu` (email address and accepting terms is required!)
