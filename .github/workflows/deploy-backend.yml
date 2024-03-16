@@ -35,4 +35,8 @@ jobs:
       - uses: mikefarah/yq@v4
         with:
           cmd: yq -i '.spec.template.spec.containers[0].image = "${{ env.IMAGE }}"' ./kemkas/kemkas-be-deployment.yaml
-      - run: git commit -a -m "prod deploy ${{ env.IMAGE }}" && git push
+      - run: |
+          git config --global --add user.name "Prod deployment bot"
+          git config --global --add user.email
+          git commit -a -m "prod deploy ${{ env.IMAGE }}"
+          git push
