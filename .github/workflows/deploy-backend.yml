@@ -1,0 +1,38 @@
+name: Deploy backend beta to production
+
+on:
+  workflow_dispatch:
+    inputs:
+      backend_image:
+        description: "Backend image to deploy"
+        required: false
+        type: string
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: get_beta_image
+        if: ${{ inputs.backend_image == '' }}
+        uses: mikefarah/yq@v4
+        with:
+          cmd: yq '.spec.template.spec.containers[0].image' ./kemkas-beta/kemkas-be-deployment.yaml
+      - run: |
+          if [ -n "${{ inputs.backend_image }}" ]; then
+            echo "Image from INPUT"
+            echo "IMAGE=${{ inputs.backend_image }}" >> $GITHUB_ENV
+            return 0;
+          fi
+          if [ -n "${{ steps.get_beta_image.outputs.result }}" ]; then
+            echo "Image from BETA"
+            echo "IMAGE=${{ steps.get_beta_image.outputs.result }}" >> $GITHUB_ENV
+            return 0;
+          fi
+          echo "Image NOT SET !!!";
+          return 1;
+      - run: echo "deployment image will be set to ${{ env.IMAGE }}"
+      - uses: mikefarah/yq@v4
+        with:
+          cmd: yq -i '.spec.template.spec.containers[0].image=${{ env.IMAGE }}' ./kemkas/kemkas-be-deployment.yaml
+      - run: git commit -a -m "prod deploy ${{ env.IMAGE }}" && git push
