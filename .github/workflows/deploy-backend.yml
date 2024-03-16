@@ -22,15 +22,15 @@ jobs:
           if [ -n "${{ inputs.backend_image }}" ]; then
             echo "Image from INPUT"
             echo "IMAGE=${{ inputs.backend_image }}" >> $GITHUB_ENV
-            return 0;
+            exit 0;
           fi
           if [ -n "${{ steps.get_beta_image.outputs.result }}" ]; then
             echo "Image from BETA"
             echo "IMAGE=${{ steps.get_beta_image.outputs.result }}" >> $GITHUB_ENV
-            return 0;
+            exit 0;
           fi
           echo "Image NOT SET !!!";
-          return 1;
+          exit 1;
       - run: echo "deployment image will be set to ${{ env.IMAGE }}"
       - uses: mikefarah/yq@v4
         with:
