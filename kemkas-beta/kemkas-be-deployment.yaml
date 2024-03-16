@@ -81,5 +81,3 @@ spec:
               cpu: 750m
               memory: 300M
       restartPolicy: Always
-      container:
-        - image: registry.digitalocean.com/kemkas/kemkas-be:950be5ae
