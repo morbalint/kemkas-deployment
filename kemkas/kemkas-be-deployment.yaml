@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: kemkas-be
-          image: registry.digitalocean.com/kemkas/kemkas-be:f0715b2e
+          image: registry.digitalocean.com/kemkas/kemkas-be:a4ed764d
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -80,6 +80,4 @@ spec:
             limits:
               cpu: 750m
               memory: 300M
-
       restartPolicy: Always
-
