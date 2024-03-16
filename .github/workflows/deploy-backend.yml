@@ -34,5 +34,5 @@ jobs:
       - run: echo "deployment image will be set to ${{ env.IMAGE }}"
       - uses: mikefarah/yq@v4
         with:
-          cmd: yq -i '.spec.template.spec.containers[0].image=${{ env.IMAGE }}' ./kemkas/kemkas-be-deployment.yaml
+          cmd: yq -i '.spec.template.spec.containers[0].image = "${{ env.IMAGE }}"' ./kemkas/kemkas-be-deployment.yaml
       - run: git commit -a -m "prod deploy ${{ env.IMAGE }}" && git push
