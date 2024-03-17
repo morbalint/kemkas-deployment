@@ -1,10 +1,10 @@
-name: Deploy backend to production
+name: Deploy frontend to production
 
 on:
   workflow_dispatch:
     inputs:
-      backend_image:
-        description: "Backend image to deploy"
+      frontend_image:
+        description: "Frontend image to deploy"
         required: false
         type: string
 
@@ -16,14 +16,14 @@ jobs:
         with:
           ssh-key: ${{ secrets.DEPLOYMENT_KEY }}
       - id: get_beta_image
-        if: ${{ inputs.backend_image == '' }}
+        if: ${{ inputs.frontend_image == '' }}
         uses: mikefarah/yq@v4
         with:
-          cmd: yq '.spec.template.spec.containers[0].image' ./kemkas-beta/kemkas-be-deployment.yaml
+          cmd: yq '.spec.template.spec.containers[0].image' ./kemkas-beta/kemkas-fe-deployment.yaml
       - run: |
-          if [ -n "${{ inputs.backend_image }}" ]; then
+          if [ -n "${{ inputs.frontend_image }}" ]; then
             echo "Image from INPUT"
-            echo "IMAGE=${{ inputs.backend_image }}" >> $GITHUB_ENV
+            echo "IMAGE=${{ inputs.frontend_image }}" >> $GITHUB_ENV
             exit 0;
           fi
           if [ -n "${{ steps.get_beta_image.outputs.result }}" ]; then
@@ -36,9 +36,9 @@ jobs:
       - run: echo "deployment image will be set to ${{ env.IMAGE }}"
       - uses: mikefarah/yq@v4
         with:
-          cmd: yq -i '.spec.template.spec.containers[0].image = "${{ env.IMAGE }}"' ./kemkas/kemkas-be-deployment.yaml
+          cmd: yq -i '.spec.template.spec.containers[0].image = "${{ env.IMAGE }}"' ./kemkas/kemkas-fe-deployment.yaml
       - run: |
-          git config --global user.name "prod backend deployment bot"
-          git config --global user.email "prod-be-deployment-bot@kemkas.hu"
+          git config --global user.name "Prod Frontend Deployment Bot"
+          git config --global user.email "prod-fe-deployment-bot@kemkas.hu"
           git commit -a -m "prod deploy ${{ env.IMAGE }}"
           git push
