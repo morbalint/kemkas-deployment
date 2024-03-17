@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: kemkas-fe
-          image: registry.digitalocean.com/kemkas/kemkas-fe:303c7c49
+          image: registry.digitalocean.com/kemkas/kemkas-fe:6a45f825
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
