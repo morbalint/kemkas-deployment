@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: kemkas-fe
-          image: ghcr.io/morbalint/kemkas-fe:d4c93aff
+          image: ghcr.io/morbalint/kemkas-fe:02872f61
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
